@@ -36,6 +36,11 @@ html, body {
     background: #00a5eb;
     color: #fff;
 }
+.like {
+    background: #21a500;
+    color: #fff;
+    width: 100px;
+}
 .semilike {
     background: #aeb400;
     color: #fff;
@@ -46,18 +51,12 @@ html, body {
     color: #fff;
     width: 100px;
 }
-.like {
-    background: #21a500;
-    color: #fff;
-    width: 100px;
-}
 .dislike {
     background: #7b0000;
     color: #fff;
     width: 100px;
 }
 .question {
-    margin-bottom: 20px;
-    padding: 20px;
+    padding: 50px 0 40px 0;
     font-size: 20px;
 }
