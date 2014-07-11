@@ -33,16 +33,30 @@ html, body {
     width: 220px;
 }
 .startbutton {
-    background: #00f;
+    background: #00a5eb;
+    color: #fff;
 }
 .like {
-    background: #0f0;
+    background: #21a500;
+    color: #fff;
+    width: 100px;
+}
+.semilike {
+    background: #aeb400;
+    color: #fff;
+    width: 100px;
+}
+.semidislike {
+    background: #b77000;
+    color: #fff;
+    width: 100px;
 }
 .dislike {
-    background: #f00;
+    background: #7b0000;
+    color: #fff;
+    width: 100px;
 }
 .question {
-    margin-bottom: 20px;
-    padding: 20px;
+    padding: 50px 0 40px 0;
     font-size: 20px;
 }

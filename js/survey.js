@@ -43,6 +43,7 @@ jQuery(function() {
         $(".intro").hide();
         this.videos = nElementsOf([0], 1);
         //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
+        this.email = $("#email").val();
         this.data = [];
         this.shown = 0;
         this.showNextVideo();
@@ -55,7 +56,6 @@ jQuery(function() {
         var self = this;
         var video = this.videos[this.shown];
         $("#container").html("<div class='video'><div class='title'></div></div>");
-        $(".title").html("Video " + (this.shown + 1));
         $(".video").append("<video id='video' width='500' height='375'>" +
                            "<source src='videos/video" + video + ".webm' type='video/webm'>" +
                            "<source src='videos/video" + video + ".mp4' type='video/mp4'>" +
@@ -73,21 +73,19 @@ jQuery(function() {
             $(".video").html("<table><tr></tr></table>")
                        .prepend("<div class='question'>Welchen Eindruck hat dieses " +
                                 "Video bei Ihnen hinterlassen?</div>");
-            $("tr").hide().append("<td><div class='button like'>Positiv</div>")
-                          .append("<td><div class='button dislike'>Negativ</div>")
+            $("tr").hide().append("<td><div data-value='3' class='button like'>Positiv</div>")
+                          .append("<td><div data-value='2' class='button semilike'>Eher positiv</div>")
+                          .append("<td><div data-value='1' class='button semidislike'>Eher negativ</div>")
+                          .append("<td><div data-value='0' class='button dislike'>Negativ</div>")
                           .fadeIn(500);
-            $(".video .like").on("click", function() {
-                self.data.push(1);
+            $(".video .button").on("click", function() {
+                self.data.push(parseInt($(this).attr("data-value")));
                 self.showNextVideo();
-            })
-            $(".video .dislike").on("click", function() {
-              self.data.push(0);
-              self.showNextVideo();
             })
         })
     }
     Survey.prototype.sendAndThank = function() {
-        $.get("data/store.php?data" + data.join(""));
+        $.post("data/store.php", {data: this.data.join(""), email: this.email});
         $("#container").html("Thank you! Your data will be saved.");
     }
     new Survey();
