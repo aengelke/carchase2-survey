@@ -62,9 +62,9 @@ jQuery(function() {
                            "</video>");
         var htmlVideo = document.getElementById("video");
         htmlVideo.play();
-        htmlVideo.onended = function() {
+        htmlVideo.addEventListener('ended', function() {
             self.showQuestionUI();
-        }
+        });
         this.shown++;
     }
     Survey.prototype.showQuestionUI = function() {
