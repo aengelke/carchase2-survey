@@ -32,6 +32,10 @@ html, body {
     text-align: center;
     width: 220px;
 }
+.nobutton {
+    background: #5a5a5a;
+    color: #fff;
+}
 .startbutton {
     background: #00a5eb;
     color: #fff;

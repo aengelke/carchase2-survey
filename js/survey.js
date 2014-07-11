@@ -25,19 +25,29 @@ jQuery(function() {
     };
     var Survey = function() {
         var self = this;
+        if (window.localStorage) {
+            if (window.localStorage.getItem("participated")) {
+                this.participated = true;
+            }
+        }
         $("#container").html("<div class='intro'></div>");
         $("#container .intro").hide()
             .html("<h1>Umfrage</h1>")
             .append(texts.intro1)
-            .append(texts.intro2)
-            .append("<p class='border margin'>E-Mail Adresse (nur bei Interesse an Ergebnissen):</p>")
-            .append("<div class='input'><input type='text' id='email' /></div>")
-            .append("<p class='border margin'></p>")
-            .append("<div id='startbutton' class='button startbutton'>Jetzt Teilnehmen</div>")
-            .fadeIn(500);
-        $("#container #startbutton").on("click", function() {
-            self.start();
-        });
+            .append(texts.intro2);
+        if (!this.participated) {
+            $("#container .intro").append("<p class='border margin'>E-Mail Adresse (nur bei Interesse an Ergebnissen):</p>")
+                .append("<div class='input'><input type='text' id='email' /></div>")
+                .append("<p class='border margin'></p>")
+                .append("<div id='startbutton' class='button startbutton'>Jetzt Teilnehmen</div>");
+            $("#container #startbutton").on("click", function() {
+                self.start();
+            });
+        } else {
+            $("#container .intro").append("<p class='border margin'></p>")
+                .append("<div class='button nobutton'>Teilnahme nur einmal m&ouml;glich</div>");
+        }
+        $("#container .intro").fadeIn(500);
     };
     Survey.prototype.start = function() {
         $(".intro").hide();
@@ -45,6 +55,9 @@ jQuery(function() {
         //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
         this.email = $("#email").val();
         this.data = [];
+        if (window.localStorage) {
+            window.localStorage.setItem("participated", "true");
+        }
         this.shown = 0;
         this.showNextVideo();
     };
