@@ -17,9 +17,9 @@ jQuery(function() {
     var nElementsOf = function(array, count) {
         var newArray = [];
         for (var i = 0; i < count; i++) {
-            var index = Math.floor(Math.random(8));
+            var index = Math.floor(array.length * Math.random());
             newArray.push(array[index]);
-            array = array.splice(index, 1);
+            array.splice(index, 1);
         }
         return newArray;
     };
