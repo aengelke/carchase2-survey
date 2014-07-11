@@ -74,8 +74,8 @@ jQuery(function() {
                        .prepend("<div class='question'>Welchen Eindruck hat dieses " +
                                 "Video bei Ihnen hinterlassen?</div>");
             $("tr").hide().append("<td><div data-value='3' class='button like'>Positiv</div>")
-                          .append("<td><div data-value='2' class='button semilike'>Negativ</div>")
-                          .append("<td><div data-value='1' class='button semidislike'>Negativ</div>")
+                          .append("<td><div data-value='2' class='button semilike'>Eher positiv</div>")
+                          .append("<td><div data-value='1' class='button semidislike'>Eher negativ</div>")
                           .append("<td><div data-value='0' class='button dislike'>Negativ</div>")
                           .fadeIn(500);
             $(".video .button").on("click", function() {
