@@ -27,7 +27,7 @@ jQuery(function() {
         var self = this;
         if (window.localStorage) {
             if (window.localStorage.getItem("participated")) {
-                this.participated = true;
+                this.participated = !true;
             }
         }
         $("#container").html("<div class='intro'></div>");
