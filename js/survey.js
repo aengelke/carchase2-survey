@@ -56,7 +56,6 @@ jQuery(function() {
         var self = this;
         var video = this.videos[this.shown];
         $("#container").html("<div class='video'><div class='title'></div></div>");
-        $(".title").html("Video " + (this.shown + 1));
         $(".video").append("<video id='video' width='500' height='375'>" +
                            "<source src='videos/video" + video + ".webm' type='video/webm'>" +
                            "<source src='videos/video" + video + ".mp4' type='video/mp4'>" +
