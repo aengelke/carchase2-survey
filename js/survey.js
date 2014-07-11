@@ -56,7 +56,7 @@ jQuery(function() {
         var self = this;
         var video = this.videos[this.shown];
         $("#container").html("<div class='video'><div class='title'></div></div>");
-        $(".video").append("<video id='video' width='500' height='375'>" +
+        $(".video").append("<video id='video' width='700' height='525'>" +
                            "<source src='videos/video" + video + ".webm' type='video/webm'>" +
                            "<source src='videos/video" + video + ".mp4' type='video/mp4'>" +
                            "</video>");
@@ -85,7 +85,7 @@ jQuery(function() {
         })
     }
     Survey.prototype.sendAndThank = function() {
-        $.post("data/store.php", {data: this.data.join(""), email: this.email});
+        $.post("data/store.php", {videos: this.videos.join(""), data: this.data.join(""), email: this.email});
         $("#container").html("Thank you! Your data will be saved.");
     }
     new Survey();
