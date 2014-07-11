@@ -33,13 +33,16 @@ html, body {
     width: 220px;
 }
 .startbutton {
-    background: #00f;
+    background: #00a5eb;
+    color: #fff;
 }
 .like {
-    background: #0f0;
+    background: #21a500;
+    color: #fff;
 }
 .dislike {
-    background: #f00;
+    background: #7b0000;
+    color: #fff;
 }
 .question {
     margin-bottom: 20px;
