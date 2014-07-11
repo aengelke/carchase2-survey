@@ -74,16 +74,14 @@ jQuery(function() {
             $(".video").html("<table><tr></tr></table>")
                        .prepend("<div class='question'>Welchen Eindruck hat dieses " +
                                 "Video bei Ihnen hinterlassen?</div>");
-            $("tr").hide().append("<td><div class='button like'>Positiv</div>")
-                          .append("<td><div class='button dislike'>Negativ</div>")
+            $("tr").hide().append("<td><div data-value='3' class='button like'>Positiv</div>")
+                          .append("<td><div data-value='2' class='button semilike'>Negativ</div>")
+                          .append("<td><div data-value='1' class='button semidislike'>Negativ</div>")
+                          .append("<td><div data-value='0' class='button dislike'>Negativ</div>")
                           .fadeIn(500);
-            $(".video .like").on("click", function() {
-                self.data.push(1);
+            $(".video .button").on("click", function() {
+                self.data.push(parseInt($(this).attr("data-value")));
                 self.showNextVideo();
-            })
-            $(".video .dislike").on("click", function() {
-              self.data.push(0);
-              self.showNextVideo();
             })
         })
     }
