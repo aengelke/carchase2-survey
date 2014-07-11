@@ -43,6 +43,7 @@ jQuery(function() {
         $(".intro").hide();
         this.videos = nElementsOf([0], 1);
         //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
+        this.email = $("#email").val();
         this.data = [];
         this.shown = 0;
         this.showNextVideo();
@@ -87,7 +88,7 @@ jQuery(function() {
         })
     }
     Survey.prototype.sendAndThank = function() {
-        $.get("data/store.php?data" + data.join(""));
+        $.post("data/store.php", {data: this.data.join(""), email: this.email});
         $("#container").html("Thank you! Your data will be saved.");
     }
     new Survey();
