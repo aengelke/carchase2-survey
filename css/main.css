@@ -33,5 +33,16 @@ html, body {
     width: 220px;
 }
 .startbutton {
+    background: #00f;
+}
+.like {
     background: #0f0;
+}
+.dislike {
+    background: #f00;
+}
+.question {
+    margin-bottom: 20px;
+    padding: 20px;
+    font-size: 20px;
 }

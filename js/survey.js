@@ -14,7 +14,17 @@ jQuery(function() {
                 "Unterschiede zu finden.</p>"
     };
     for (var text in texts) texts[text] = texts[text].replace(/ß/g, "&szlig;");
+    var nElementsOf = function(array, count) {
+        var newArray = [];
+        for (var i = 0; i < count; i++) {
+            var index = Math.floor(Math.random(8));
+            newArray.push(array[index]);
+            array = array.splice(index, 1);
+        }
+        return newArray;
+    };
     var Survey = function() {
+        var self = this;
         $("#container").html("<div class='intro'></div>");
         $("#container .intro").hide()
             .html("<h1>Umfrage</h1>")
@@ -25,10 +35,61 @@ jQuery(function() {
             .append("<p class='border margin'></p>")
             .append("<div id='startbutton' class='button startbutton'>Jetzt Teilnehmen</div>")
             .fadeIn(500);
-        $("#container #startbutton").on("click", this.start);
+        $("#container #startbutton").on("click", function() {
+            self.start();
+        });
     };
     Survey.prototype.start = function() {
+        $(".intro").hide();
+        this.videos = nElementsOf([0], 1);
+        //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
+        this.data = [];
+        this.shown = 0;
+        this.showNextVideo();
     };
+    Survey.prototype.showNextVideo = function() {
+        if (this.shown >= this.videos.length) {
+            this.sendAndThank();
+            return;
+        }
+        var self = this;
+        var video = this.videos[this.shown];
+        $("#container").html("<div class='video'><div class='title'></div></div>");
+        $(".title").html("Video " + (this.shown + 1));
+        $(".video").append("<video id='video' width='500' height='375'>" +
+                           "<source src='videos/video" + video + ".webm' type='video/webm'>" +
+                           "<source src='videos/video" + video + ".mp4' type='video/mp4'>" +
+                           "</video>");
+        var htmlVideo = document.getElementById("video");
+        htmlVideo.play();
+        htmlVideo.onended = function() {
+            self.showQuestionUI();
+        }
+        this.shown++;
+    }
+    Survey.prototype.showQuestionUI = function() {
+        var self = this;
+        $("video").fadeOut(500, function() {
+            $(".video").html("<table><tr></tr></table>")
+                       .prepend("<div class='question'>Welchen Eindruck hat dieses " +
+                                "Video bei Ihnen hinterlassen?</div>");
+            $("tr").hide().append("<td><div class='button like'>Positiv</div>")
+                          .append("<td><div class='button dislike'>Negativ</div>")
+                          .fadeIn(500);
+            $(".video .like").on("click", function() {
+                self.data.push(1);
+                self.showNextVideo();
+            })
+            $(".video .dislike").on("click", function() {
+              self.data.push(0);
+              self.showNextVideo();
+            })
+        })
+    }
+    Survey.prototype.sendAndThank = function() {
+        $.get("data/store.php?data" + data.join(""));
+        $("#container").html("Thank you! Your data will be saved.");
+    }
     new Survey();
     // Do stuff here.
 });
