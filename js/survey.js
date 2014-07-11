@@ -41,7 +41,7 @@ jQuery(function() {
     };
     Survey.prototype.start = function() {
         $(".intro").hide();
-        this.videos = nElementsOf([0], 1);
+        this.videos = nElementsOf([0,7], 2);
         //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
         this.email = $("#email").val();
         this.data = [];
