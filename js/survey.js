@@ -1,13 +1,14 @@
 jQuery(function() {
     var texts = {
-        intro1: "<p>Im folgenden werden Sie einige Videos mit Audiokommentar " +
+        intro0: "<p>Diese Umfrage wird ca. 1,5 Minuten Zeit in Anspruch nehmen.</p>",
+        intro1: "<p>Im folgenden werden Sie vier Videos mit Audiokommentar " +
                 "sehen. Das Video (eine Autoverfolgung) sowie der Kommentar " +
                 "sind getrennt automatisch erzeugt worden. Das heißt, dass " +
                 "das System, das den Audiokommentar erzeugt, auch nur das Bild " +
                 "\"sieht\" und nicht vorher weiß, was passieren wird.</p>",
         intro2: "<p>Die Kommentare sind von unterschiedlichen Systemen erzeugt " +
                 "worden. Uns interessiert, wie diese unterschiedlichen " +
-                "Systeme auf Sie wirken. Sie werden einzelne Szenen mit " +
+                "Systeme auf Sie wirken. Sie werden vier Szenen mit " +
                 "Kommentar gezeigt bekommen, und sollen dann spontan sagen, ob " +
                 "Ihnen der Kommentar gefallen hat. Gehen Sie dabei nach Ihrem " +
                 "ersten Eindruck, und bem&uuml;hen Sie sich nicht, im Einzelnen " +
@@ -33,6 +34,7 @@ jQuery(function() {
         $("#container").html("<div class='intro'></div>");
         $("#container .intro").hide()
             .html("<h1>Umfrage</h1>")
+            .append(texts.intro0)
             .append(texts.intro1)
             .append(texts.intro2);
         if (!this.participated) {
@@ -83,8 +85,8 @@ jQuery(function() {
         var self = this;
         $("video").fadeOut(500, function() {
             $(".video").html("<table><tr></tr></table>")
-                       .prepend("<div class='question'>Welchen Eindruck hat dieses " +
-                                "Video bei Ihnen hinterlassen?</div>");
+                       .prepend("<div class='question'>Welchen Eindruck hat dieser " +
+                                "Kommentar bei Ihnen hinterlassen?</div>");
             $("tr").hide().append("<td><div data-value='#' class='button like'>Positiv</div>")
                           .append("<td><div data-value='+' class='button semilike'>Eher positiv</div>")
                           .append("<td><div data-value='-' class='button semidislike'>Eher negativ</div>")
@@ -98,7 +100,7 @@ jQuery(function() {
     }
     Survey.prototype.sendAndThank = function() {
         $.post("data/store.php", {videos: this.videos.join(""), data: this.data.join(""), email: this.email});
-        $("#container").html("Thank you! Your data will be saved.");
+        $("#container").html("<div class='center margin'><h1>Vielen Dank!</h1></div><div class='center margin border'>Die Daten wurden gespeichert.</div>");
     }
     new Survey();
     // Do stuff here.
