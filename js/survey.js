@@ -51,8 +51,7 @@ jQuery(function() {
     };
     Survey.prototype.start = function() {
         $(".intro").hide();
-        this.videos = nElementsOf([0,2,5,7], 3);
-        //this.videos = nElementsOf([0,1,2,3,4,5,6,7], 4);
+        this.videos = nElementsOf([0,1,2,5,6,7], 4);
         this.email = $("#email").val();
         this.data = [];
         if (window.localStorage) {
@@ -86,13 +85,13 @@ jQuery(function() {
             $(".video").html("<table><tr></tr></table>")
                        .prepend("<div class='question'>Welchen Eindruck hat dieses " +
                                 "Video bei Ihnen hinterlassen?</div>");
-            $("tr").hide().append("<td><div data-value='3' class='button like'>Positiv</div>")
-                          .append("<td><div data-value='2' class='button semilike'>Eher positiv</div>")
-                          .append("<td><div data-value='1' class='button semidislike'>Eher negativ</div>")
-                          .append("<td><div data-value='0' class='button dislike'>Negativ</div>")
+            $("tr").hide().append("<td><div data-value='#' class='button like'>Positiv</div>")
+                          .append("<td><div data-value='+' class='button semilike'>Eher positiv</div>")
+                          .append("<td><div data-value='-' class='button semidislike'>Eher negativ</div>")
+                          .append("<td><div data-value='=' class='button dislike'>Negativ</div>")
                           .fadeIn(500);
             $(".video .button").on("click", function() {
-                self.data.push(parseInt($(this).attr("data-value")));
+                self.data.push($(this).attr("data-value"));
                 self.showNextVideo();
             })
         })
