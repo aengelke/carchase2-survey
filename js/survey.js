@@ -80,7 +80,7 @@ jQuery(function() {
             self.showQuestionUI();
         });
         this.shown++;
-    }
+    };
     Survey.prototype.showQuestionUI = function() {
         var self = this;
         $("video").fadeOut(500, function() {
@@ -95,13 +95,13 @@ jQuery(function() {
             $(".video .button").on("click", function() {
                 self.data.push($(this).attr("data-value"));
                 self.showNextVideo();
-            })
-        })
-    }
+            });
+        });
+    };
     Survey.prototype.sendAndThank = function() {
         $.post("data/store.php", {videos: this.videos.join(""), data: this.data.join(""), email: this.email});
         $("#container").html("<div class='center margin'><h1>Vielen Dank!</h1></div><div class='center margin border'>Die Daten wurden gespeichert.</div>");
-    }
+    };
     new Survey();
     // Do stuff here.
 });
