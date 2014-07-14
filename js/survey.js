@@ -59,7 +59,7 @@ jQuery(function() {
                 .append(texts.intro2);
             $("#container .intro").append("<div id='reallystartbutton' class='button startbutton' style='display:none;'>Starten</div>").fadeIn(500);
             $("#container #reallystartbutton").delay(2500).fadeIn(500);
-            $("#container #startbutton").on("click", function() {
+            $("#container #reallystartbutton").on("click", function() {
                 self.start();
             });
         });
