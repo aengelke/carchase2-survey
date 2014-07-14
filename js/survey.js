@@ -43,13 +43,26 @@ jQuery(function() {
                 .append("<p class='border margin'></p>")
                 .append("<div id='startbutton' class='button startbutton'>Jetzt Teilnehmen</div>");
             $("#container #startbutton").on("click", function() {
-                self.start();
+                self.showInstructions();
             });
         } else {
             $("#container .intro").append("<p class='border margin'></p>")
                 .append("<div class='button nobutton'>Teilnahme nur einmal m&ouml;glich</div>");
         }
         $("#container .intro").fadeIn(500);
+    };
+    Survey.prototype.showInstructions = function() {
+        $("#container").html("<div class='intro'></div>");
+        $("#container .intro").fadeOut(500, function() {
+            $(this).html("<h1>Umfrage</h1>")
+                .append(texts.intro1)
+                .append(texts.intro2);
+            $("#container .intro").append("<div id='reallystartbutton' class='button startbutton' style='display:none;'>Starten</div>").fadeIn(500);
+            $("#container #reallystartbutton").delay(2500).fadeIn(500);
+            $("#container #startbutton").on("click", function() {
+                self.start();
+            });
+        });
     };
     Survey.prototype.start = function() {
         $(".intro").hide();
