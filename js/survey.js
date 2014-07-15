@@ -28,7 +28,7 @@ jQuery(function() {
         var self = this;
         if (window.localStorage) {
             if (window.localStorage.getItem("participated")) {
-                this.participated = !true;
+                this.participated = true;
             }
         }
         $("#container").html("<div class='intro'></div>");
@@ -37,32 +37,31 @@ jQuery(function() {
             .append(texts.intro0)
             .append(texts.intro1)
             .append(texts.intro2);
+        $("#container .intro").append("<p class='border margin'>E-Mail Adresse (nur bei Interesse an Ergebnissen):</p>")
+            .append("<div class='input'><input type='text' id='email' /></div>")
+            .append("<p class='border margin'></p>")
+            .append("<div id='startbutton' class='button startbutton' style='display:none;'>Jetzt Teilnehmen</div>");
+        $("#container .intro").fadeIn(500);
         if (!this.participated) {
-            $("#container .intro").append("<p class='border margin'>E-Mail Adresse (nur bei Interesse an Ergebnissen):</p>")
-                .append("<div class='input'><input type='text' id='email' /></div>")
-                .append("<p class='border margin'></p>")
-                .append("<div id='startbutton' class='button startbutton'>Jetzt Teilnehmen</div>");
-            $("#container #startbutton").on("click", function() {
-                self.showInstructions();
+            $("#container #startbutton").delay(500)
+                    .width(0)
+                    .height(0)
+                    .css("background", "#777")
+                    .css("color", "#777")
+                    .show()
+                    .animate({width: 240}, 3000, function() {
+                $(this).animate({height: 22}, 500, function() {
+                    $(this).animate({backgroundColor: "#00a5eb", color: "#fff"}, 700)
+                            .on("click", function() {
+                        self.start();
+                    });
+                });
             });
         } else {
-            $("#container .intro").append("<p class='border margin'></p>")
-                .append("<div class='button nobutton'>Teilnahme nur einmal m&ouml;glich</div>");
-        }
-        $("#container .intro").fadeIn(500);
-    };
-    Survey.prototype.showInstructions = function() {
-        $("#container").html("<div class='intro'></div>");
-        $("#container .intro").fadeOut(500, function() {
-            $(this).html("<h1>Umfrage</h1>")
-                .append(texts.intro1)
-                .append(texts.intro2);
-            $("#container .intro").append("<div id='reallystartbutton' class='button startbutton' style='display:none;'>Starten</div>").fadeIn(500);
-            $("#container #reallystartbutton").delay(2500).fadeIn(500);
-            $("#container #reallystartbutton").on("click", function() {
+            $("#container #startbutton").delay(500).fadeIn(500).on("click", function() {
                 self.start();
             });
-        });
+        }
     };
     Survey.prototype.start = function() {
         $(".intro").hide();
@@ -114,7 +113,10 @@ jQuery(function() {
     Survey.prototype.sendAndThank = function() {
         $.post("data/store.php", {videos: this.videos.join(""), data: this.data.join(""), email: this.email});
         $("#container").html("<div class='center margin'><h1>Vielen Dank!</h1></div><div class='center margin border'>Die Daten wurden gespeichert.</div>");
+        if (window.localStorage) {
+            window.localStorage.setItem("participated", "true");
+        }
     };
+    (function(d){d.each(["backgroundColor","borderBottomColor","borderLeftColor","borderRightColor","borderTopColor","color","outlineColor"],function(f,e){d.fx.step[e]=function(g){if(!g.colorInit){g.start=c(g.elem,e);g.end=b(g.end);g.colorInit=true;}g.elem.style[e]="rgb("+[Math.max(Math.min(parseInt((g.pos*(g.end[0]-g.start[0]))+g.start[0]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[1]-g.start[1]))+g.start[1]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[2]-g.start[2]))+g.start[2]),255),0)].join(",")+")";};});function b(f){var e;if(f&&f.constructor==Array&&f.length==3){return f;}if(e=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(f)){return[parseInt(e[1]),parseInt(e[2]),parseInt(e[3])];}if(e=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(f)){return[parseInt(e[1],16),parseInt(e[2],16),parseInt(e[3],16)];}if(e=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(f)){return[parseInt(e[1]+e[1],16),parseInt(e[2]+e[2],16),parseInt(e[3]+e[3],16)];}}function c(g,e){var f;do{f=d.css(g,e);if(f!==""&&f!="transparent"||d.nodeName(g,"body")){break;}e="backgroundColor";}while(g=g.parentNode);return b(f);}})(jQuery);
     new Survey();
-    // Do stuff here.
 });

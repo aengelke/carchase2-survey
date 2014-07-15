@@ -34,6 +34,8 @@ html, body {
     padding: 10px;
     text-align: center;
     width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .nobutton {
     background: #5a5a5a;
@@ -42,6 +44,8 @@ html, body {
 .startbutton {
     background: #00a5eb;
     color: #fff;
+    width: 240px;
+    padding: 10px 0;
 }
 .like {
     background: #21a500;
